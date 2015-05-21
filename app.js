@@ -38,6 +38,7 @@ function onPlaybackRateChangeed(event){
 function onPlaybackRateReset(event){
 	var rate = 1;
 	setPlaybackRate(rate);
+	playbackRateControl.value = 1;
 };
 
 function showNowPlaying(value){
@@ -70,6 +71,27 @@ function nextMusic(){
 	playNextMusic();
 }
 
+function draw(){
+  ctx.fillStyle = "rgb(0, 0, 0)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  var data = [20, 10, 50, 60, 30, 20, 40, 50, 60, 30, 10, 20, 40, 70, 5, -1, -20, -5, -20, -7, -5, 5];
+  ctx.fillStyle = "rgb(255,255,255)";
+  var i = 0;
+  var offset = 5;
+  var x = 5;
+  var width = (canvas.width - x)/data.length - offset;
+
+  while(i < data.length){
+  	ctx.fillRect(x, canvas.height / 2- data[i] * 4, width, data[i]*4);
+  	i = i + 1;
+  	x = x + width + offset;
+  }
+
+}
+
+
+
 var skip15secButton = document.querySelector("#skip-15s-button");
 skip15secButton.addEventListener("click",skip15sec);
 
@@ -92,3 +114,6 @@ player.addEventListener("ended",onPlaybackEnded);
 
 var goNext = document.querySelector("#go-next");
 goNext.addEventListener("click",nextMusic);
+
+var canvas = document.querySelector("canvas");
+var ctx = canvas.getContext("2d");
